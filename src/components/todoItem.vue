@@ -22,6 +22,8 @@
   
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Action } from 'vuex-class';
+
 @Component({
   props: {
     todoItem: Object,
@@ -29,6 +31,8 @@ import { Component, Vue } from 'vue-property-decorator';
   },
 })
 export default class TodoItem extends Vue {
+  @Action private 'CHANGE_TODO_STATUS': (data: number) => void;
+
   private checkStatus: boolean = false;
 
   private edit(index: number): void {
@@ -36,7 +40,8 @@ export default class TodoItem extends Vue {
   }
 
   private changeTodoStatus(index: number): void {
-    this.$store.dispatch('CHANGE_TODO_STATUS', index);
+    const key = 'CHANGE_TODO_STATUS';
+    this[key](index);
   }
 }
 </script>

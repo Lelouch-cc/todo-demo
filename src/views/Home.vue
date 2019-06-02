@@ -53,7 +53,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { State } from 'vuex-class';
+import { State, Action } from 'vuex-class';
 import TodoItem from '@/components/todoItem.vue';
 
 @Component({
@@ -64,6 +64,11 @@ import TodoItem from '@/components/todoItem.vue';
 export default class Home extends Vue {
   // vuex store
   @State private todoList!: any[];
+  @Action private 'ADD_TODO': (data: string) => void;
+  @Action private 'EDIT_TODO': (data: { text: string, index: number }) => void;
+  @Action private 'DELETE_TODO': (data: number) => void;
+  @Action private 'COMPLETE_ALL_TODO': () => void;
+  @Action private 'DELETE_DONE_TODO': () => void;
 
   // data
   private showAdd: boolean = false;
@@ -89,7 +94,8 @@ export default class Home extends Vue {
 
   // 确定添加任务
   private addTodo(): void {
-    this.$store.dispatch('ADD_TODO', this.addText || '新的任务');
+    const key = 'ADD_TODO';
+    this[key](this.addText || '新的任务');
   }
 
   // 打开编辑对话框
@@ -108,23 +114,27 @@ export default class Home extends Vue {
 
   // 确定编辑任务
   private editTodo(): void {
-    this.$store.dispatch('EDIT_TODO', { text: this.editText || '新的任务', index: this.editIndex });
+    const key = 'EDIT_TODO';
+    this[key]({ text: this.editText || '新的任务', index: this.editIndex });
   }
 
   // 删除单个Todo
   private deleteTodo(): void {
-    this.$store.dispatch('DELETE_TODO', this.editIndex);
+    const key = 'DELETE_TODO';
+    this[key](this.editIndex);
     this.showEdit = false;
   }
 
   // 完成全部任务
   private completeAll(): void {
-    this.$store.dispatch('COMPLETE_ALL_TODO');
+    const key = 'COMPLETE_ALL_TODO';
+    this[key]();
   }
 
   // 删除已完成任务
   private deleteDone(): void {
-    this.$store.dispatch('DELETE_DONE_TODO');
+    const key = 'DELETE_DONE_TODO';
+    this[key]();
   }
 }
 </script>
