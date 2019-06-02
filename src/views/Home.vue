@@ -18,7 +18,11 @@
     <Modal v-model="showAdd" title="添加新的任务" :closable="false" @on-visible-change="addModalStatusChange" @on-ok="addTodo">
       <Input v-model="addText" placeholder="请输入任务内容"></Input>
     </Modal>
-    <Modal v-model="showEdit" title="编辑任务" :closable="false" @on-visible-change="editModalStatusChange" @on-ok="editTodo">
+    <Modal v-model="showEdit" :closable="false" @on-visible-change="editModalStatusChange" @on-ok="editTodo">
+      <div slot="header" class="edit-header">
+        <h3>编辑任务</h3>
+        <Button type="error" size="small" @click="deleteTodo">删除</Button>
+      </div>
       <Input v-model="editText" placeholder="请输入修改的内容"></Input>
     </Modal>
   </div>
@@ -79,6 +83,12 @@ export default class Home extends Vue {
   private editTodo(): void {
     this.$store.dispatch('EDIT_TODO', { text: this.editText || '新的任务', index: this.editIndex });
   }
+
+  // 删除单个Todo
+  private deleteTodo(): void {
+    this.$store.dispatch('DELETE_TODO', this.editIndex);
+    this.showEdit = false;
+  }
 }
 </script>
 
@@ -97,6 +107,14 @@ export default class Home extends Vue {
     .check-list {
       margin-top: 20px;
     }
+  }
+</style>
+
+<style lang="less">
+  .edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 </style>
 

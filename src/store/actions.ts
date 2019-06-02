@@ -9,4 +9,7 @@ export default {
   EDIT_TODO({ commit }: { commit: any }, data: { text: string, index: number }) {
     commit('EDIT_TODO', data);
   },
+  DELETE_TODO({ commit }: { commit: any }, data: number) {
+    commit('DELETE_TODO', data);
+  },
 };
