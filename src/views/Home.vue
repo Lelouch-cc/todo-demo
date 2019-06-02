@@ -13,10 +13,13 @@
       </Card>
     </div>
     <ul class="check-list" v-else>
-      <todo-item v-for="item in todoList" :key="item.id" :todoText="item.data" />
+      <todo-item v-for="(item, index) in todoList" :key="item.id" :todoItem="item" :todoIndex="index" @on-click-edit="openEdit"/>
     </ul>
     <Modal v-model="showAdd" title="添加新的任务" :closable="false" @on-visible-change="addModalStatusChange" @on-ok="addTodo">
       <Input v-model="addText" placeholder="请输入任务内容"></Input>
+    </Modal>
+    <Modal v-model="showEdit" title="编辑任务" :closable="false" @on-visible-change="editModalStatusChange" @on-ok="editTodo">
+      <Input v-model="editText" placeholder="请输入修改的内容"></Input>
     </Modal>
   </div>
 </template>
@@ -38,6 +41,9 @@ export default class Home extends Vue {
   // data
   private showAdd: boolean = false;
   private addText: string = '';
+  private showEdit: boolean = false;
+  private editIndex: number = 0;
+  private editText: string = '';
 
   // methods
   // 打开新建任务对话框
@@ -53,6 +59,25 @@ export default class Home extends Vue {
   // 确定添加任务
   private addTodo(): void {
     this.$store.dispatch('ADD_TODO', this.addText || '新的任务');
+  }
+
+  // 打开编辑对话框
+  private openEdit(index: number): void {
+    this.editIndex = index;
+    this.editText = this.todoList[index].data;
+    this.showEdit = true;
+  }
+
+  // 编辑任务对话框状态改变
+   private editModalStatusChange(status: boolean): void {
+     if (!status) {
+       this.editText = '';
+     }
+  }
+
+  // 确定编辑任务
+  private editTodo(): void {
+    this.$store.dispatch('EDIT_TODO', { text: this.editText || '新的任务', index: this.editIndex });
   }
 }
 </script>

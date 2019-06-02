@@ -6,4 +6,7 @@ export default {
       isDown: false,
     });
   },
+  EDIT_TODO({ commit }: { commit: any }, data: { text: string, index: number }) {
+    commit('EDIT_TODO', data);
+  },
 };
