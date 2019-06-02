@@ -30,6 +30,8 @@ Vue.component('Badge', Badge);
 
 Vue.config.productionTip = false;
 
+store.dispatch('TODO_INIT');
+
 new Vue({
   router,
   store,

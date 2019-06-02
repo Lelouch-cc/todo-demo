@@ -1,4 +1,7 @@
 export default {
+  TODO_INIT({ commit }: { commit: any }) {
+    commit('TODO_INIT');
+  },
   ADD_TODO({ commit }: { commit: any }, data: string) {
     commit('ADD_TODO', {
       id: new Date().getTime(),
