@@ -6,7 +6,7 @@
     </h1>
     <!-- 添加任务按钮 -->
     <div class="add">
-      <Button type="primary" size="large" @click="openAdd">添加Todo</Button>
+      <Button type="primary" @click="openAdd">添加Todo</Button>
     </div>
     <!-- 空列表 -->
     <div class="empty-list" v-if="todoList.length <= 0">
@@ -142,6 +142,7 @@ export default class Home extends Vue {
 <style lang="less" scoped>
   .home {
     width: 100%;
+    padding-top: 10px;
 
     .title {
       text-align: center;
@@ -152,7 +153,7 @@ export default class Home extends Vue {
     }
 
     .check-list {
-      margin-top: 20px;
+      margin-top: 40px;
     }
   }
 </style>
