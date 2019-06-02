@@ -1,14 +1,17 @@
 <template>
   <li>
     <Row type="flex" align="middle" class="todo-item">
+      <!-- Todo状态 -->
       <Col span="2">
         <Checkbox size="large" :value="todoItem.isDown" @on-change=changeTodoStatus(todoIndex)></Checkbox>
       </Col>
+      <!-- Todo内容 -->
       <Col span="18">
         <div class="todo-text" v-bind:class="{done: todoItem.isDown}">
           {{ todoItem.data }}
         </div>
       </Col>
+      <!-- 编辑按钮 -->
       <Col span="4">
         <Button type="default" @click="edit(todoIndex)">···</Button>
       </Col>

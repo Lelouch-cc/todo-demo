@@ -15,4 +15,10 @@ export default {
   CHANGE_TODO_STATUS({ commit }: { commit: any }, data: number) {
     commit('CHANGE_TODO_STATUS', data);
   },
+  COMPLETE_ALL_TODO({ commit }: { commit: any }) {
+    commit('COMPLETE_ALL_TODO');
+  },
+  DELETE_DONE_TODO({ commit }: { commit: any }) {
+    commit('DELETE_DONE_TODO');
+  },
 };

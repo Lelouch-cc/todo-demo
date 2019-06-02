@@ -4,7 +4,18 @@ import router from './router';
 import store from './store';
 import './registerServiceWorker';
 import 'iview/dist/styles/iview.css';
-import { Button, Row, Col, Checkbox, Divider, Modal, Input, Card, Icon } from 'iview';
+import {
+  Button,
+  Row,
+  Col,
+  Checkbox,
+  Divider,
+  Modal,
+  Input,
+  Card,
+  Icon,
+  Badge,
+} from 'iview';
 
 Vue.component('Button', Button);
 Vue.component('Row', Row);
@@ -15,6 +26,7 @@ Vue.component('Modal', Modal);
 Vue.component('Input', Input);
 Vue.component('Card', Card);
 Vue.component('Icon', Icon);
+Vue.component('Badge', Badge);
 
 Vue.config.productionTip = false;
 

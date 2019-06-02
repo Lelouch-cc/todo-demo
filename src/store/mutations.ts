@@ -12,4 +12,16 @@ export default {
     const status: boolean = state.todoList[data].isDown;
     state.todoList[data].isDown = !status;
   },
+  COMPLETE_ALL_TODO(state: any): void {
+    state.todoList.map((item: any) => item.isDown = true);
+  },
+  DELETE_DONE_TODO(state: any): void {
+    const newList: any[] = [];
+    state.todoList.map((item: any) => {
+      if (!item.isDown) {
+        newList.push(item);
+      }
+    });
+    state.todoList = newList;
+  },
 };

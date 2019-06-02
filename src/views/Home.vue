@@ -1,23 +1,46 @@
 <template>
   <div class="home">
+    <!-- 标题 -->
     <h1 class="title">
       Todo List
     </h1>
+    <!-- 添加任务按钮 -->
     <div class="add">
       <Button type="primary" size="large" @click="openAdd">添加Todo</Button>
     </div>
+    <!-- 空列表 -->
     <div class="empty-list" v-if="todoList.length <= 0">
       <Card style="width: 600px; text-align: center; margin: 20px auto 0; min-height: 200px;" dis-hover>
         <Icon type="ios-archive-outline" size="120" />
         <p>现在暂无任务</p>
       </Card>
     </div>
+    <!-- Todo列表 -->
     <ul class="check-list" v-else>
       <todo-item v-for="(item, index) in todoList" :key="item.id" :todoItem="item" :todoIndex="index" @on-click-edit="openEdit"/>
     </ul>
+    <!-- 列表相关数据及操作 -->
+    <Row type="flex" justify="center" align="middle" style="width: 600px; margin: 20px auto;">
+      <Col span="6">
+        任务总数：
+        <Badge :count="todoList.length" show-zero></Badge>
+      </Col>
+      <Col span="6">
+        已完成数量：
+        <Badge :count="downTodo" show-zero class-name="done-badge"></Badge>
+      </Col>
+      <Col span="6">
+        <Button type="primary" size="small" @click="completeAll" v-show="todoList.length > 0">完成全部</Button>
+      </Col>
+      <Col span="6">
+        <Button type="primary" size="small" @click="deleteDone" v-show="todoList.length > 0">删除已完成任务</Button>
+      </Col>
+    </Row>
+    <!-- 新建对话框 -->
     <Modal v-model="showAdd" title="添加新的任务" :closable="false" @on-visible-change="addModalStatusChange" @on-ok="addTodo">
       <Input v-model="addText" placeholder="请输入任务内容"></Input>
     </Modal>
+    <!-- 编辑对话框 -->
     <Modal v-model="showEdit" :closable="false" @on-visible-change="editModalStatusChange" @on-ok="editTodo">
       <div slot="header" class="edit-header">
         <h3>编辑任务</h3>
@@ -29,7 +52,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { State } from 'vuex-class';
 import TodoItem from '@/components/todoItem.vue';
 
@@ -48,6 +71,10 @@ export default class Home extends Vue {
   private showEdit: boolean = false;
   private editIndex: number = 0;
   private editText: string = '';
+
+  get downTodo(): number {
+    return this.todoList.filter((item: any) => item.isDown).length;
+  }
 
   // methods
   // 打开新建任务对话框
@@ -89,6 +116,16 @@ export default class Home extends Vue {
     this.$store.dispatch('DELETE_TODO', this.editIndex);
     this.showEdit = false;
   }
+
+  // 完成全部任务
+  private completeAll(): void {
+    this.$store.dispatch('COMPLETE_ALL_TODO');
+  }
+
+  // 删除已完成任务
+  private deleteDone(): void {
+    this.$store.dispatch('DELETE_DONE_TODO');
+  }
 }
 </script>
 
@@ -115,6 +152,10 @@ export default class Home extends Vue {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .done-badge {
+    background: #5cb85c !important;
   }
 </style>
 
