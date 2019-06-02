@@ -8,4 +8,8 @@ export default {
   DELETE_TODO(state: any, data: any): void {
     state.todoList.splice(data, 1);
   },
+  CHANGE_TODO_STATUS(state: any, data: any): void {
+    const status: boolean = state.todoList[data].isDown;
+    state.todoList[data].isDown = !status;
+  },
 };

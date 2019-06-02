@@ -12,4 +12,7 @@ export default {
   DELETE_TODO({ commit }: { commit: any }, data: number) {
     commit('DELETE_TODO', data);
   },
+  CHANGE_TODO_STATUS({ commit }: { commit: any }, data: number) {
+    commit('CHANGE_TODO_STATUS', data);
+  },
 };

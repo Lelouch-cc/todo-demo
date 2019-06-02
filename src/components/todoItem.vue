@@ -2,10 +2,10 @@
   <li>
     <Row type="flex" align="middle" class="todo-item">
       <Col span="2">
-        <Checkbox size="large" :value="todoItem.isDown"></Checkbox>
+        <Checkbox size="large" :value="todoItem.isDown" @on-change=changeTodoStatus(todoIndex)></Checkbox>
       </Col>
       <Col span="18">
-        <div class="todo-text" v-bind:class="{done: checkStatus}">
+        <div class="todo-text" v-bind:class="{done: todoItem.isDown}">
           {{ todoItem.data }}
         </div>
       </Col>
@@ -30,6 +30,10 @@ export default class TodoItem extends Vue {
 
   private edit(index: number): void {
     this.$emit('on-click-edit', index);
+  }
+
+  private changeTodoStatus(index: number): void {
+    this.$store.dispatch('CHANGE_TODO_STATUS', index);
   }
 }
 </script>
