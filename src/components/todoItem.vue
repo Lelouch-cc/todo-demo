@@ -3,11 +3,11 @@
     <Row type="flex" align="middle" class="todo-item">
       <!-- Todo状态 -->
       <Col span="2">
-        <Checkbox size="large" :value="todoItem.isDown" @on-change=changeTodoStatus(todoIndex)></Checkbox>
+        <Checkbox size="large" :value="todoItem.isDone" @on-change=changeTodoStatus(todoIndex)></Checkbox>
       </Col>
       <!-- Todo内容 -->
       <Col span="18">
-        <div class="todo-text" v-bind:class="{done: todoItem.isDown}">
+        <div class="todo-text" v-bind:class="{done: todoItem.isDone}">
           {{ todoItem.data }}
         </div>
       </Col>

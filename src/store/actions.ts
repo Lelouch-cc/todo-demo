@@ -3,7 +3,7 @@ export default {
     commit('ADD_TODO', {
       id: new Date().getTime(),
       data,
-      isDown: false,
+      isDone: false,
     });
   },
   EDIT_TODO({ commit }: { commit: any }, data: { text: string, index: number }) {

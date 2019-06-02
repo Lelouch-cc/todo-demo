@@ -27,7 +27,7 @@
       </Col>
       <Col span="6">
         已完成数量：
-        <Badge :count="downTodo" show-zero class-name="done-badge"></Badge>
+        <Badge :count="doneTodo" show-zero class-name="done-badge"></Badge>
       </Col>
       <Col span="6">
         <Button type="primary" size="small" @click="completeAll" v-show="todoList.length > 0">完成全部</Button>
@@ -72,8 +72,8 @@ export default class Home extends Vue {
   private editIndex: number = 0;
   private editText: string = '';
 
-  get downTodo(): number {
-    return this.todoList.filter((item: any) => item.isDown).length;
+  get doneTodo(): number {
+    return this.todoList.filter((item: any) => item.isDone).length;
   }
 
   // methods

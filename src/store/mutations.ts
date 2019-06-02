@@ -9,16 +9,16 @@ export default {
     state.todoList.splice(data, 1);
   },
   CHANGE_TODO_STATUS(state: any, data: any): void {
-    const status: boolean = state.todoList[data].isDown;
-    state.todoList[data].isDown = !status;
+    const status: boolean = state.todoList[data].isDone;
+    state.todoList[data].isDone = !status;
   },
   COMPLETE_ALL_TODO(state: any): void {
-    state.todoList.map((item: any) => item.isDown = true);
+    state.todoList.map((item: any) => item.isDone = true);
   },
   DELETE_DONE_TODO(state: any): void {
     const newList: any[] = [];
     state.todoList.map((item: any) => {
-      if (!item.isDown) {
+      if (!item.isDone) {
         newList.push(item);
       }
     });
